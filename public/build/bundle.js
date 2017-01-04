@@ -46,8 +46,6 @@
 
 	'use strict';
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -66,41 +64,18 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var app = _react2.default.createElement(
+		_reactRedux.Provider,
+		{ store: _stores2.default.configureStore() },
+		_react2.default.createElement(
+			'div',
+			null,
+			'React Entry Point',
+			_react2.default.createElement(_containers.Posts, null)
+		)
+	);
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_Component) {
-		_inherits(App, _Component);
-	
-		function App() {
-			_classCallCheck(this, App);
-	
-			return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-		}
-	
-		_createClass(App, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					_reactRedux.Provider,
-					{ store: _stores2.default.configureStore() },
-					_react2.default.createElement(
-						'div',
-						null,
-						'React Entry Point',
-						_react2.default.createElement(_containers.Posts, null)
-					)
-				);
-			}
-		}]);
-	
-		return App;
-	}(_react.Component);
-	
-	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
+	_reactDom2.default.render(app, document.getElementById('root'));
 
 /***/ },
 /* 1 */
@@ -21552,6 +21527,12 @@
 	
 	var _utils = __webpack_require__(180);
 	
+	var _reactRedux = __webpack_require__(192);
+	
+	var _actions = __webpack_require__(235);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21572,11 +21553,15 @@
 		_createClass(Posts, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				_utils.APIManager.get('/api/post', null).then(function (response) {
-					console.log('RESPONSE: ' + JSON.stringify(response));
-				}).catch(function (err) {
-					console.log('ERROR: ' + err);
-				});
+				this.props.fetchPosts(null);
+	
+				// APIManager.get('/api/post', null)
+				// .then((response) => {
+				// 	console.log('RESPONSE: '+JSON.stringify(response))
+				// })
+				// .catch((err) => {
+				// 	console.log('ERROR: '+err)
+				// })
 			}
 		}, {
 			key: 'render',
@@ -21592,7 +21577,21 @@
 		return Posts;
 	}(_react.Component);
 	
-	exports.default = Posts;
+	var stateToProps = function stateToProps(state) {
+		return {
+			posts: state.post
+		};
+	};
+	
+	var dispatchToProps = function dispatchToProps(dispatch) {
+		return {
+			fetchPosts: function fetchPosts(params) {
+				return dispatch(_actions2.default.fetchPosts(params));
+			}
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Posts);
 
 /***/ },
 /* 180 */
@@ -31713,6 +31712,48 @@
 	});
 	exports.default = {
 		POSTS_RECEIVED: 'POSTS_RECEIVED'
+	};
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(234);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	var _utils = __webpack_require__(180);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	
+		fetchPosts: function fetchPosts(params) {
+			return function (dispatch) {
+				_utils.APIManager.get('/api/post', null).then(function (response) {
+					console.log('RESPONSE: ' + JSON.stringify(response));
+					dispatch({
+						type: _constants2.default.POSTS_RECEIVED,
+						posts: response.results
+					});
+				}).catch(function (err) {
+					console.log('ERROR: ' + err);
+				});
+			};
+		},
+	
+		postsReceived: function postsReceived(posts) {
+			return {
+				type: _constants2.default.POSTS_RECEIVED,
+				posts: posts
+			};
+		}
 	};
 
 /***/ }
