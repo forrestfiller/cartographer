@@ -6,19 +6,21 @@ import actions from '../../actions'
 class Posts extends Component {
 	componentDidMount(){
 		this.props.fetchPosts(null)
-
-		// APIManager.get('/api/post', null)
-		// .then((response) => {
-		// 	console.log('RESPONSE: '+JSON.stringify(response))
-		// })
-		// .catch((err) => {
-		// 	console.log('ERROR: '+err)
-		// })
 	}
+
 	render(){
+		const list = this.props.posts.list.map((post, i) => {
+			return (
+				<li key={post._id}>{post.caption}</li>
+			)
+		})
+
 		return (
 			<div>
-				Posts container
+				Posts Container
+				<ol>
+					{ list }
+				</ol>
 			</div>
 		)
 	}

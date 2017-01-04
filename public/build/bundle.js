@@ -21554,22 +21554,27 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.props.fetchPosts(null);
-	
-				// APIManager.get('/api/post', null)
-				// .then((response) => {
-				// 	console.log('RESPONSE: '+JSON.stringify(response))
-				// })
-				// .catch((err) => {
-				// 	console.log('ERROR: '+err)
-				// })
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				var list = this.props.posts.list.map(function (post, i) {
+					return _react2.default.createElement(
+						'li',
+						{ key: post._id },
+						post.caption
+					);
+				});
+	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Posts container'
+					'Posts Container',
+					_react2.default.createElement(
+						'ol',
+						null,
+						list
+					)
 				);
 			}
 		}]);
@@ -31683,7 +31688,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var initialState = {};
+	var initialState = {
+		list: []
+	
+	};
 	
 	exports.default = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -31694,6 +31702,7 @@
 		switch (action.type) {
 			case _constants2.default.POSTS_RECEIVED:
 				console.log('POSTS_RECEIVED: ' + JSON.stringify(action.posts));
+				updated['list'] = action.posts;
 				return updated;
 	
 			default:
