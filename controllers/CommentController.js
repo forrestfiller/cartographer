@@ -10,7 +10,16 @@ module.exports = {
 					reject(err)
 					return
 				}
-				resolve(comments)
+
+				if (isRaw == true)
+					resolve(comments)
+				else {
+					var list = []
+					comments.forEach(function(comment, i){
+						list.push(comment.summary())
+					})
+				}
+				resolve(list)
 			})
 		})
 	},
@@ -22,7 +31,10 @@ module.exports = {
 					reject(err)
 					return
 				}
-				resolve(comment)
+				if (isRaw == true)
+					resolve(comment)
+				else
+					resolve(comment.summary)
 			})
 		})
 	},
@@ -34,7 +46,10 @@ module.exports = {
 					reject(err)
 					return
 				}
-				resolve(comment)
+				if (isRaw == true)
+					resolve(comment)
+				else
+					resolve(comment.summary)
 			})
 		})
 	}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { APIManager } from '../../utils'
 import { connect } from 'react-redux'
 import actions from '../../actions'
+import { CreatePost } from '../view'
 
 class Posts extends Component {
 	componentDidMount(){
@@ -11,13 +12,13 @@ class Posts extends Component {
 	render(){
 		const list = this.props.posts.list.map((post, i) => {
 			return (
-				<li key={post._id}>{post.caption}</li>
+				<li key={post.id}>{post.caption}</li>
 			)
 		})
 
 		return (
 			<div>
-				Posts Container
+				<CreatePost />
 				<ol>
 					{ list }
 				</ol>
