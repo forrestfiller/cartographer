@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 
 class CreatePost extends Component {
-
 	constructor(){
 		super()
 		this.state = {
@@ -36,7 +35,7 @@ class CreatePost extends Component {
 				<Dropzone style={{border:'none'}}>
 					<button>Upload Image</button>
 				</Dropzone>
-				<input onChange={this.updatePost.bind(this)} type="text" placeholder="Caption" />
+				<input id="caption" onChange={this.updatePost.bind(this)} type="text" placeholder="Caption" />
 				<button onClick={this.submitPost.bind(this)}>Submit</button>
 			</div>
 		)

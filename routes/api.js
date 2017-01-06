@@ -65,7 +65,7 @@ router.post('/:resource', function(req, res, next){
 	var controller = controllers[resource]
 	if (controller == null){
 		res.json({
-			confirmation: 'success',
+			confirmation: 'fail',
 			message: 'Invalid Resource'
 		})
 		return

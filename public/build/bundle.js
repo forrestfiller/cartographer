@@ -21661,6 +21661,7 @@
 				var currentLocation = this.props.posts.currentLocation;
 				post['geo'] = [currentLocation.lat, currentLocation.lng];
 				console.log('submitPost: ' + JSON.stringify(post));
+				this.props.createPost(post);
 			}
 		}, {
 			key: 'render',
@@ -21697,6 +21698,9 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 		return {
+			createPost: function createPost(params) {
+				return dispatch(_actions2.default.createPost(params));
+			},
 			fetchPosts: function fetchPosts(params) {
 				return dispatch(_actions2.default.fetchPosts(params));
 			}
@@ -21756,8 +21760,19 @@
 					resolve(response.body);
 				});
 			});
-		}
+		},
 	
+		post: function post(url, params) {
+			return new _bluebird2.default(function (resolve, reject) {
+				_superagent2.default.post(url).send(params).set('Accept', 'application/json').end(function (err, response) {
+					if (err) {
+						reject(err);
+						return;
+					}
+					resolve(response.body);
+				});
+			});
+		}
 	};
 
 /***/ },
@@ -31721,6 +31736,20 @@
 			};
 		},
 	
+		createPost: function createPost(params) {
+			return function (dispatch) {
+				_utils.APIManager.post('/api/post', params).then(function (response) {
+					console.log('RESPONSE: ' + JSON.stringify(response));
+					// dispatch({
+					// 	type: constants.POSTS_RECEIVED,
+					// 	posts: response.results
+					// })
+				}).catch(function (err) {
+					console.log('ERROR: ' + err);
+				});
+			};
+		},
+	
 		fetchPosts: function fetchPosts(params) {
 			return function (dispatch) {
 				_utils.APIManager.get('/api/post', null).then(function (response) {
@@ -31860,7 +31889,7 @@
 							'Upload Image'
 						)
 					),
-					_react2.default.createElement('input', { onChange: this.updatePost.bind(this), type: 'text', placeholder: 'Caption' }),
+					_react2.default.createElement('input', { id: 'caption', onChange: this.updatePost.bind(this), type: 'text', placeholder: 'Caption' }),
 					_react2.default.createElement(
 						'button',
 						{ onClick: this.submitPost.bind(this) },
