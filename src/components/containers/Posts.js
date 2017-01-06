@@ -9,6 +9,10 @@ class Posts extends Component {
 		this.props.fetchPosts(null)
 	}
 
+	componentDidUpdate(){
+		console.log('componentDidUpdate: ')
+	}
+	
 	render(){
 		const list = this.props.posts.list.map((post, i) => {
 			return (
