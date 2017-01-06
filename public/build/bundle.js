@@ -21653,26 +21653,34 @@
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate() {
 				console.log('componentDidUpdate: ');
+				if (this.props.posts.list == null) this.props.fetchPosts(null);
+			}
+		}, {
+			key: 'submitPost',
+			value: function submitPost(post) {
+				var currentLocation = this.props.posts.currentLocation;
+				post['geo'] = [currentLocation.lat, currentLocation.lng];
+				console.log('submitPost: ' + JSON.stringify(post));
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var list = this.props.posts.list.map(function (post, i) {
-					return _react2.default.createElement(
-						'li',
-						{ key: post.id },
-						post.caption
-					);
-				});
+				var list = this.props.posts.list; // this can be null
 	
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_view.CreatePost, null),
+					_react2.default.createElement(_view.CreatePost, { onCreate: this.submitPost.bind(this) }),
 					_react2.default.createElement(
 						'ol',
 						null,
-						list
+						list == null ? null : list.map(function (post, i) {
+							return _react2.default.createElement(
+								'li',
+								{ key: post.id },
+								post.caption
+							);
+						})
 					)
 				);
 			}
@@ -31807,10 +31815,36 @@
 		function CreatePost() {
 			_classCallCheck(this, CreatePost);
 	
-			return _possibleConstructorReturn(this, (CreatePost.__proto__ || Object.getPrototypeOf(CreatePost)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (CreatePost.__proto__ || Object.getPrototypeOf(CreatePost)).call(this));
+	
+			_this.state = {
+				post: {
+					image: '',
+					caption: ''
+				}
+			};
+			return _this;
 		}
 	
 		_createClass(CreatePost, [{
+			key: 'updatePost',
+			value: function updatePost(event) {
+				event.preventDefault();
+				var updated = Object.assign({}, this.state.post);
+				updated[event.target.id] = event.target.value;
+				this.setState({
+					post: updated
+				});
+			}
+		}, {
+			key: 'submitPost',
+			value: function submitPost(event) {
+				event.preventDefault();
+				console.log('submitPost: ' + JSON.stringify(this.state.post));
+				var updated = Object.assign({}, this.state.post);
+				this.props.onCreate(updated);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -31825,6 +31859,12 @@
 							null,
 							'Upload Image'
 						)
+					),
+					_react2.default.createElement('input', { onChange: this.updatePost.bind(this), type: 'text', placeholder: 'Caption' }),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.submitPost.bind(this) },
+						'Submit'
 					)
 				);
 			}
@@ -32441,8 +32481,7 @@
 			lat: 40.7355677,
 			lng: -73.9906802
 		},
-		list: []
-	
+		list: null
 	};
 	
 	exports.default = function () {
@@ -32460,7 +32499,7 @@
 			case _constants2.default.CURRENT_LOCATION_CHANGED:
 				//		console.log('CURRENT_LOCATION_CHANGED: '+JSON.stringify(action.location))
 				updated['currentLocation'] = action.location;
-	
+				updated['list'] = null;
 				return updated;
 	
 			default:

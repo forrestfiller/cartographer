@@ -5,8 +5,7 @@ var initialState = {
 		lat: 40.7355677,
 		lng: -73.9906802
 	},
-	list: []
-
+	list: null
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +20,7 @@ export default (state = initialState, action) => {
 		case constants.CURRENT_LOCATION_CHANGED:
 	//		console.log('CURRENT_LOCATION_CHANGED: '+JSON.stringify(action.location))
 			updated['currentLocation'] = action.location
-
+			updated['list'] = null
 			return updated
 
 		default:

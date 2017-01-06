@@ -11,20 +11,33 @@ class Posts extends Component {
 
 	componentDidUpdate(){
 		console.log('componentDidUpdate: ')
+		if (this.props.posts.list == null)
+			this.props.fetchPosts(null)
 	}
-	
+
+	submitPost(post){
+		const currentLocation = this.props.posts.currentLocation
+		post['geo'] = [
+			currentLocation.lat,
+			currentLocation.lng,
+		]
+		console.log('submitPost: '+JSON.stringify(post))
+	}
+
 	render(){
-		const list = this.props.posts.list.map((post, i) => {
-			return (
-				<li key={post.id}>{post.caption}</li>
-			)
-		})
+		const list = this.props.posts.list // this can be null
 
 		return (
 			<div>
-				<CreatePost />
+				<CreatePost onCreate={this.submitPost.bind(this)} />
 				<ol>
-					{ list }
+					{ (list == null) ? null :
+							list.map((post, i) => {
+								return (
+									<li key={post.id}>{post.caption}</li>
+								)
+							})
+					 }
 				</ol>
 			</div>
 		)

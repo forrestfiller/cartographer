@@ -13,7 +13,6 @@ class Map extends Component {
 		var latLng = this.state.map.getCenter().toJSON()
 		// console.log('mapDragged: '+JSON.stringify(latLng))
 		this.props.mapMoved(latLng)
-
 	}
 
 	render(){
