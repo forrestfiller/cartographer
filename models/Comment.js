@@ -16,7 +16,7 @@ CommentSchema.methods.summary = function(){
 		id: this._id.toString()
 	}
 
-	return summary
+	return summary	
 }
 
 module.exports = mongoose.model('CommentSchema', CommentSchema)

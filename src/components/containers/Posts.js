@@ -5,6 +5,7 @@ import actions from '../../actions'
 import { CreatePost } from '../view'
 
 class Posts extends Component {
+
 	componentDidMount(){
 		this.props.fetchPosts(null)
 	}
@@ -21,24 +22,27 @@ class Posts extends Component {
 			currentLocation.lat,
 			currentLocation.lng,
 		]
+
 		console.log('submitPost: '+JSON.stringify(post))
 		this.props.createPost(post)
 	}
 
 	render(){
-		const list = this.props.posts.list // this can be null
+		const list = this.props.posts.list // can be null
 
 		return (
 			<div>
 				<CreatePost onCreate={this.submitPost.bind(this)} />
 				<ol>
 					{ (list == null) ? null :
-							list.map((post, i) => {
-								return (
-									<li key={post.id}>{post.caption}</li>
-								)
-							})
+						list.map((post, i) => {
+							return (
+								<li key={post.id}>{post.caption}<img src={post.image} /></li>
+
+							)
+						})
 					 }
+
 				</ol>
 			</div>
 		)

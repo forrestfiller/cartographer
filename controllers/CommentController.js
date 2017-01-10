@@ -2,7 +2,6 @@ var Comment = require('../models/Comment')
 var Promise = require('bluebird')
 
 module.exports = {
-
 	get: function(params, isRaw){
 		return new Promise(function(resolve, reject){
 			Comment.find(params, function(err, comments){
@@ -18,8 +17,9 @@ module.exports = {
 					comments.forEach(function(comment, i){
 						list.push(comment.summary())
 					})
+
+					resolve(list)
 				}
-				resolve(list)
 			})
 		})
 	},
@@ -31,10 +31,11 @@ module.exports = {
 					reject(err)
 					return
 				}
+
 				if (isRaw == true)
 					resolve(comment)
 				else
-					resolve(comment.summary)
+					resolve(comment.summary())
 			})
 		})
 	},
@@ -46,12 +47,12 @@ module.exports = {
 					reject(err)
 					return
 				}
+				
 				if (isRaw == true)
 					resolve(comment)
 				else
-					resolve(comment.summary)
+					resolve(comment.summary())
 			})
 		})
 	}
-
 }

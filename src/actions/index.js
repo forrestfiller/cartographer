@@ -3,6 +3,55 @@ import { APIManager } from '../utils'
 
 export default {
 
+	login: (params) => {
+		return (dispatch) => {
+			APIManager
+			.post('/account/login', params)
+			.then(response => {
+				dispatch({
+					type: constants.CURRENT_USER_RECEIVED,
+					user: response.user
+				})
+			})
+			.catch((err) => {
+				console.log('ERROR: '+err)
+				alert(err.message)
+			})
+		}
+	},
+
+	checkCurrentUser: () => {
+		return (dispatch) => {
+			APIManager
+			.get('/account/currentuser', null)
+			.then(response => {
+				dispatch({
+					type: constants.CURRENT_USER_RECEIVED,
+					user: response.user
+				})
+			})
+			.catch((err) => {
+				console.log('ERROR: '+err)
+			})
+		}
+	},
+
+	signup: (params) => {
+		return (dispatch) => {
+			APIManager
+			.post('/account/register', params)
+			.then(response => {
+				dispatch({
+					type: constants.CURRENT_USER_RECEIVED,
+					user: response.user
+				})
+			})
+			.catch((err) => {
+				console.log('ERROR: '+err)
+			})
+		}
+	},
+
 	updateCurrentLocation: (location) => {
 		return {
 			type: constants.CURRENT_LOCATION_CHANGED,
@@ -38,7 +87,6 @@ export default {
 					posts: response.results
 				})
 			})
-
 			.catch((err) => {
 				console.log('ERROR: '+err)
 			})
@@ -46,9 +94,9 @@ export default {
 	},
 
 	postsReceived: (posts) => {
-		return{
+		return {
 			type: constants.POSTS_RECEIVED,
-			posts:posts
+			posts: posts
 		}
 	}
 }

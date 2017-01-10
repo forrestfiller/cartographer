@@ -10,6 +10,7 @@ module.exports = {
 					reject(err)
 					return
 				}
+
 				if (isRaw == true)
 					resolve(posts)
 				else {
@@ -17,6 +18,7 @@ module.exports = {
 					posts.forEach(function(post, i){
 						list.push(post.summary())
 					})
+
 					resolve(list)
 				}
 			})
@@ -30,10 +32,11 @@ module.exports = {
 					reject(err)
 					return
 				}
+
 				if (isRaw == true)
 					resolve(post)
 				else
-					resolve(post.summary)
+					resolve(post.summary())
 			})
 		})
 	},
@@ -45,12 +48,12 @@ module.exports = {
 					reject(err)
 					return
 				}
+				
 				if (isRaw == true)
 					resolve(post)
 				else
-					resolve(post.summary)
+					resolve(post.summary())
 			})
 		})
 	}
-
 }

@@ -8,6 +8,7 @@ var PostSchema = new mongoose.Schema({
 		type: [Number],
 		index: '2d'
 	},
+
 	timestamp: {type:Date, default: Date.now}
 })
 
@@ -23,5 +24,6 @@ PostSchema.methods.summary = function(){
 
 	return summary
 }
+
 
 module.exports = mongoose.model('PostSchema', PostSchema)

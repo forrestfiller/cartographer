@@ -4,6 +4,7 @@ import { Home } from './components/layout'
 import store from './stores'
 import { Provider } from 'react-redux'
 
+
 const app = (
 	<Provider store={ store.configureStore() }>
 		<div>

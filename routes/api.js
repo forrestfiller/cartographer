@@ -7,82 +7,82 @@ router.get('/:resource', function(req, res, next) {
 
 	var controller = controllers[resource]
 	if (controller == null){
-		res.json({
-			confirmation: 'success',
-			message: 'Invalid Resource'
-		})
-		return
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: 'Invalid Resource'
+	    })
+
+	    return
 	}
 
 	controller.get(req.query, false)
 	.then(function(results){
-		res.json({
-			confirmation:'success',
-			results: results
-		})
+	    res.json({
+	    	confirmation: 'success',
+	    	results: results
+	    })
 	})
-
 	.catch(function(err){
-		res.json({
-			confirmation: 'failure',
-			message: err
-		})
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: err
+	    })
 	})
 })
 
-router.get('/:resource/:id', function(req, res, next){
+router.get('/:resource/:id', function(req, res, next) {
 	var resource = req.params.resource
 	var controller = controllers[resource]
-
 	if (controller == null){
-		res.json({
-			confirmation: 'success',
-			message: 'Invalid Resource'
-		})
-		return
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: 'Invalid Resource'
+	    })
+
+	    return
 	}
 
-	var id = req.params.id
-
-	controller.getById(id, false)
+	controller.getById(req.params.id, false)
 	.then(function(result){
-		res.json({
-			confirmation:'success',
-			result: result
-		})
+	    res.json({
+	    	confirmation: 'success',
+	    	result: result
+	    })
 	})
-
 	.catch(function(err){
-		res.json({
-			confirmation: 'failure',
-			message: 'Not Found.'
-		})
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: 'Not Found'
+	    })
 	})
 })
 
-router.post('/:resource', function(req, res, next){
+router.post('/:resource', function(req, res, next) {
 	var resource = req.params.resource
 	var controller = controllers[resource]
 	if (controller == null){
-		res.json({
-			confirmation: 'fail',
-			message: 'Invalid Resource'
-		})
-		return
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: 'Invalid Resource'
+	    })
+
+	    return
 	}
+
 	controller.post(req.body, false)
 	.then(function(result){
-		res.json({
-			confirmation:'success',
-			result:result
-		})
+	    res.json({
+	    	confirmation: 'success',
+	    	result: result
+	    })
 	})
 	.catch(function(err){
-		res.json({
-			confirmation: 'failure',
-			message: err
-		})
+	    res.json({
+	    	confirmation: 'fail',
+	    	message: err
+	    })
 	})
 })
+
 
 module.exports = router
