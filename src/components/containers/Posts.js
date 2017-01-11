@@ -51,7 +51,7 @@ class Posts extends Component {
 					{ (list == null) ? null :
 						list.map((post, i) => {
 							return (
-								<li key={post.id}>{post.caption}<img style={{width:500}} src={post.image} /></li>
+								<li key={post.id}>{post.caption}<br /><img style={{width:200,height:200}} src={post.image} /></li>
 
 							)
 						})

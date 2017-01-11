@@ -5,7 +5,7 @@ import { Sidebar, Footer } from '../view'
 class Home extends Component {
 	render(){
 		return (
-			<div>
+			<div style={{backgroundColor:'#e0e0e0'}}>
 				<header id="header" style={{padding:0}}>
 					<div className="inner">
 
@@ -23,7 +23,7 @@ class Home extends Component {
 
 							<div className="4u 12u$(small)">
 								<Account />
-								
+
 							</div>
 						</div>
 
