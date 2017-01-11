@@ -21,21 +21,21 @@ gulp.task('css', function(){
 })
 
 gulp.task('build', function(){
-    return gulp.src(
-    		[
-					'./public/assets/js/jquery.min.js',
-					'./public/assets/js/jquery.poptrox.min.js',
-					'./public/assets/js/skel.min.js',
-					'./public/assets/js/util.js',
-					'./public/assets/js/ie/respond.min.js',
-					'./public/assets/js/main.js'
-    		]
-    	)
-        .pipe(gp_concat('gulp-concat.js'))
-        .pipe(gulp.dest('./public/min/'))
-        .pipe(gp_rename('vendor.min.js'))
-        .pipe(gp_uglify())
-        .pipe(gulp.dest('./public/build/'))
+  return gulp.src(
+			    [
+				      './public/assets/js/jquery.min.js',
+				      './public/assets/js/jquery.poptrox.min.js',
+				      './public/assets/js/skel.min.js',
+				      './public/assets/js/util.js',
+				      './public/assets/js/ie/respond.min.js',
+				      './public/assets/js/main.js'
+			    ]
+			  )
+			  .pipe(gp_concat('gulp-concat.js'))
+			  .pipe(gulp.dest('./public/min/'))
+			  .pipe(gp_rename('vendor.min.js'))
+			  .pipe(gp_uglify())
+			  .pipe(gulp.dest('./public/build/'));
 })
 
 gulp.task('default', ['css', 'build'], function(){})
