@@ -7,16 +7,30 @@ import { CreatePost } from '../view'
 class Posts extends Component {
 
 	componentDidMount(){
-		this.props.fetchPosts(null)
+		const currentLocation = this.props.posts.currentLocation
+		this.props.fetchPosts(currentLocation)
 	}
 
 	componentDidUpdate(){
 		console.log('componentDidUpdate: ')
-		if (this.props.posts.list == null)
-			this.props.fetchPosts(null)
+		if (this.props.posts.list == null){
+			const currentLocation = this.props.posts.currentLocation
+			this.props.fetchPosts(currentLocation)
+		}
 	}
 
 	submitPost(post){
+		const user = this.props.account.user
+		if (user == null){
+			alert('Please signup or login to submit.')
+			return
+		}
+
+		post['profile'] = {
+			id: user.id,
+			username: user.username
+		}
+
 		const currentLocation = this.props.posts.currentLocation
 		post['geo'] = [
 			currentLocation.lat,
@@ -37,7 +51,7 @@ class Posts extends Component {
 					{ (list == null) ? null :
 						list.map((post, i) => {
 							return (
-								<li key={post.id}>{post.caption}<img src={post.image} /></li>
+								<li key={post.id}>{post.caption}<img style={{width:500}} src={post.image} /></li>
 
 							)
 						})
@@ -51,7 +65,8 @@ class Posts extends Component {
 
 const stateToProps = (state) => {
 	return {
-		posts: state.post
+		posts: state.post,
+		account: state.account
 	}
 }
 

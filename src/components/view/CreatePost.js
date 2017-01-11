@@ -41,8 +41,8 @@ class CreatePost extends Component {
 		this.props.onCreate(updated)
 	}
 
-	imageSelected(files){
-        console.log('imageSelected: ')
+	imageselected(files){
+        console.log('imageselected: ')
         const image = files[0]
 
         const cloudName = 'dcxaoww0c'
@@ -77,13 +77,13 @@ class CreatePost extends Component {
 
 	render(){
 		return (
-			<div>
+			<div style={{marginBottom:20}}>
 				Create Post
-				<Dropzone onDrop={this.imageSelected.bind(this)} style={{border:'none'}}>
-					<button>Upload Image</button>
+				<Dropzone onDrop={this.imageselected.bind(this)} style={{border:'none', marginBottom:10}}>
+					<button className="button submit">Upload Image</button>
 				</Dropzone>
-				<input id="caption" onChange={this.updatePost.bind(this)} type="text" placeholder="Caption" />
-				<button onClick={this.submitPost.bind(this)}>Submit</button>
+				<input style={{marginBottom:10}} id="caption" onChange={this.updatePost.bind(this)} type="text" placeholder="Caption" />
+				<button className="button submit" onClick={this.submitPost.bind(this)}>Submit</button>
 			</div>
 		)
 	}

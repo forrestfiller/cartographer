@@ -5,7 +5,26 @@ module.exports = {
 
 	get: function(params, isRaw){
 		return new Promise(function(resolve, reject){
-			Post.find(params, function(err, posts){
+			// check params for lat and lng
+			if (params.lat!=null && params.lng!=null){
+				// geo spatial query:
+				var range = 50/6371 // 6371 is the radius of the earth in KM
+				params['geo'] = {
+					$near: [params.lat, params.lng],
+					$maxDistance: range
+				}
+
+				delete params['lat']
+				delete params['lng']
+			}
+
+			var filters = {
+				sort: {
+					timestamp: -1
+				}
+			}
+
+			Post.find(params, null, filters, function(err, posts){
 				if (err){
 					reject(err)
 					return
@@ -48,7 +67,7 @@ module.exports = {
 					reject(err)
 					return
 				}
-				
+
 				if (isRaw == true)
 					resolve(post)
 				else
