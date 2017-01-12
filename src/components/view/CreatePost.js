@@ -77,7 +77,7 @@ class CreatePost extends Component {
 
 	render(){
 		return (
-			<div style={{marginBottom:20}}>
+			<div style={{marginBottom:20, color:'#515151'}}>
 				Create Post
 				<Dropzone onDrop={this.imageselected.bind(this)} style={{border:'none', marginBottom:10}}>
 					<button className="button submit">Upload Image</button>

@@ -21,7 +21,7 @@ class Account extends Component {
 		const currentUser = this.props.account.user
 
 		return (
-			<div>
+			<div style={{color:'#515151'}}>
 				Account container
 				{ (currentUser == null) ? <Register onRegister={this.register.bind(this)} onLogin={this.login.bind(this)}/> :
 				<h2>{currentUser.username}</h2> }

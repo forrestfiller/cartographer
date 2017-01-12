@@ -21723,7 +21723,7 @@
 					_react2.default.createElement(_view.CreatePost, { onCreate: this.submitPost.bind(this) }),
 					_react2.default.createElement(
 						'ol',
-						null,
+						{ style: { color: '#515151' } },
 						list == null ? null : list.map(function (post, i) {
 							return _react2.default.createElement(
 								'li',
@@ -32076,7 +32076,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ style: { marginBottom: 20 } },
+					{ style: { marginBottom: 20, color: '#515151' } },
 					'Create Post',
 					_react2.default.createElement(
 						_reactDropzone2.default,
@@ -39294,8 +39294,8 @@
 					'div',
 					null,
 					_react2.default.createElement(
-						'h2',
-						null,
+						'h3',
+						{ style: { color: '#3b3b3b' } },
 						'Sign Up'
 					),
 					_react2.default.createElement('input', { onChange: this.updateRegistration.bind(this), id: 'username', type: 'text', placeholder: 'Username' }),
@@ -39642,7 +39642,7 @@
 	
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: { color: '#515151' } },
 					'Account container',
 					currentUser == null ? _react2.default.createElement(_view.Register, { onRegister: this.register.bind(this), onLogin: this.login.bind(this) }) : _react2.default.createElement(
 						'h2',

@@ -47,7 +47,7 @@ class Posts extends Component {
 		return (
 			<div>
 				<CreatePost onCreate={this.submitPost.bind(this)} />
-				<ol>
+				<ol style={{color:'#515151'}}>
 					{ (list == null) ? null :
 						list.map((post, i) => {
 							return (

@@ -48,7 +48,7 @@ class Register extends Component {
 
 		return (
 				<div>
-					<h2>Sign Up</h2>
+					<h3 style={{color:'#3b3b3b'}}>Sign Up</h3>
 					<input onChange={this.updateRegistration.bind(this)} id="username" type="text" placeholder="Username" /><br />
 					<input onChange={this.updateRegistration.bind(this)} id="password" type="password" placeholder="Password" /><br />
 					<button style={{width:'50px'}} className="button submit" onClick={this.submitRegistration.bind(this)}>Join</button>
