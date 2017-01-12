@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "6"
+  - "6.1"
+install:
+  - npm install
+  - npm update
+script:
+  - npm run build
+

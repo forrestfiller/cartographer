@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/:page', function(req, res, next) {
-  res.render(req.params.page, { title: 'Other Express' })
+  res.render(req.params.page, { title: 'TestingExpress' })
 })
 module.exports = router
