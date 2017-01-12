@@ -13,7 +13,9 @@ The project is currently live, although under active development. There is a sli
 
 It is located here: [**ff-googlemaps**](https://ff-googlemaps.herokuapp.com/)
 
-[![Build Status](https://travis-ci.org/forrestfiller/googlemaps.svg?branch=master)](https://travis-ci.org/forrestfiller/googlemaps)
+
+[![Build Status](https://travis-ci.org/forrestfiller/cartographer.svg?branch=master)](https://travis-ci.org/forrestfiller/cartographer)
+
 
 ### Build Instructions
 
