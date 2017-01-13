@@ -1,5 +1,5 @@
 
-# Google Maps SPA
+# Welcome to Cartographer!
 
 This SPA is written in ```Node.js``` and ```React-Redux```.
 
@@ -7,11 +7,10 @@ The application provides users with the ability to interact with a map through a
 
 Users can post comments (with an uploaded image) that are automatically tied to a geographic location depending on where they have dragged the map before posting.
 
-The project is currently live, although under active development. There is a slight lag in uptime as the deployment is running on a **Heroku** instance which is asleep until the site is visited. Thereafter the speed of the SPA shouldn’t be an issue.
+The project is currently live, although under active development. There may be a slight lag in uptime as the deployment is running on a **Heroku** instance which is asleep until the site is visited. Thereafter, the speed of the SPA shouldn’t be an issue. 
+**Note**: *This README is incomplete and in progress*
 
-**Note**: *This README is incomplete and in progress as well*
-
-It is located here: [**ff-googlemaps**](https://ff-googlemaps.herokuapp.com/)
+It is located here: [**Cartographer**](https://ffcartographer.herokuapp.com/)
 
 
 [![Build Status](https://travis-ci.org/forrestfiller/cartographer.svg?branch=master)](https://travis-ci.org/forrestfiller/cartographer)
@@ -25,7 +24,7 @@ It is located here: [**ff-googlemaps**](https://ff-googlemaps.herokuapp.com/)
 
 - **Interactive map**: as users drag the map around, user posts appear and disappear based upon the latitude and longitude of the posts. For example, if there was a post made about something in lower Manhattan, as the map was dragged into that neighborhood, the post with associated image would be immediately rendered. Just as when the map is dragged away from an area, posts disappear.
 
-- The project was initiated with the **the Express Generator** (with **hogan-middleware**).
+- The project was initiated with **the Express Generator** (with **hogan-middleware**).
 
 - **Sign-up / Login**: new users can register, and returning users can authenticate.  Passwords are hashed (with **bcryptjs**) and stored securely in a **MongoDB** (with  **mongoose**) linked to the server (hosting through **Heroku**). Failed attempts to authenticate or errors including missing information (such as an a user leaving the password field empty and submitting) are caught and an alert is issued to the user.
 
